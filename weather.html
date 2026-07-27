@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>To-Do List</title>
-
+    <title>Weather Dashboard</title>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
@@ -23,15 +18,10 @@
         <ul class="nav-links">
 
             <li><a href="index.html">Home</a></li>
-
             <li><a href="about.html">About</a></li>
-
             <li><a href="skills.html">Skills</a></li>
-
             <li><a href="contact.html">Contact</a></li>
-
             <li><a href="todo.html">To-Do</a></li>
-
             <li><a href="weather.html">Weather</a></li>
 
         </ul>
@@ -44,52 +34,38 @@
 
 <main>
 
-<section class="todo-section">
+<section class="weather-section">
 
-<h2>Task Manager</h2>
+<div class="weather-container">
 
-<div class="todo-container">
+<h2>🌤 Weather Dashboard</h2>
 
-<div class="input-area">
+<p class="weather-text">
+
+Search any city to get live weather updates.
+
+</p>
+
+<div class="weather-search">
 
 <input
 type="text"
-id="taskInput"
-placeholder="Enter a task">
+id="cityInput"
+placeholder="Enter city name">
 
-<button id="addTaskBtn">
+<button id="searchWeather">
 
-Add Task
-
-</button>
-
-</div>
-
-<div class="filter-buttons">
-
-<button class="filter-btn active-filter" data-filter="all">
-
-All
-
-</button>
-
-<button class="filter-btn" data-filter="active">
-
-Active
-
-</button>
-
-<button class="filter-btn" data-filter="completed">
-
-Completed
+Search
 
 </button>
 
 </div>
 
-<ul id="taskList">
+<div id="weatherResult">
 
-</ul>
+<h3>Weather details will appear here.</h3>
+
+</div>
 
 </div>
 
@@ -110,5 +86,4 @@ Completed
 <script src="js/script.js"></script>
 
 </body>
-
 </html>

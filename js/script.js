@@ -257,3 +257,148 @@ filterButtons.forEach(button=>{
 renderTasks();
 
 }
+
+/*=========================================
+        TASK 4 - WEATHER DASHBOARD
+=========================================*/
+
+const cityInput = document.getElementById("cityInput");
+const searchWeatherBtn = document.getElementById("searchWeather");
+const weatherResult = document.getElementById("weatherResult");
+
+/*
+    Replace YOUR_API_KEY with your OpenWeather API key.
+*/
+const API_KEY = "e8a6f1511a05e84dbc8aeb6c57b4dab2";
+
+if (cityInput && searchWeatherBtn && weatherResult) {
+
+    async function getWeather(city) {
+
+        weatherResult.innerHTML = `
+            <p class="loading">Loading weather...</p>
+        `;
+
+        try {
+
+            const response = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+            );
+
+            if (!response.ok) {
+                throw new Error("City not found");
+            }
+
+            const data = await response.json();
+
+            displayWeather(data);
+
+        } catch (error) {
+
+            weatherResult.innerHTML = `
+                <p class="error">${error.message}</p>
+            `;
+
+        }
+
+    }
+        function displayWeather(data) {
+
+        const icon = data.weather[0].icon;
+        let weatherImage = "";
+
+switch (icon) {
+    case "01d":
+        weatherImage = "https://img.icons8.com/color/96/sun.png";
+        break;
+
+    case "01n":
+        weatherImage = "https://img.icons8.com/color/96/full-moon.png";
+        break;
+
+    case "02d":
+    case "03d":
+    case "04d":
+        weatherImage = "https://img.icons8.com/color/96/partly-cloudy-day.png";
+        break;
+
+    case "02n":
+    case "03n":
+    case "04n":
+        weatherImage = "https://img.icons8.com/color/96/cloud.png";
+        break;
+
+    case "09d":
+    case "09n":
+    case "10d":
+    case "10n":
+        weatherImage = "https://img.icons8.com/color/96/rain.png";
+        break;
+
+    case "11d":
+    case "11n":
+        weatherImage = "https://img.icons8.com/color/96/storm.png";
+        break;
+
+    case "13d":
+    case "13n":
+        weatherImage = "https://img.icons8.com/color/96/snow.png";
+        break;
+
+    case "50d":
+    case "50n":
+        weatherImage = "https://img.icons8.com/color/96/fog-day.png";
+        break;
+
+    default:
+        weatherImage = "https://img.icons8.com/color/96/cloud.png";
+}
+
+        weatherResult.innerHTML = `
+            <div class="weather-info">
+
+                <h2>${data.name}, ${data.sys.country}</h2>
+
+                <img src="${weatherImage}" alt="Weather Icon">
+
+
+               
+
+                <p><strong>🌡 Temperature:</strong> ${data.main.temp} °C</p>
+
+                <p><strong>💧 Humidity:</strong> ${data.main.humidity}%</p>
+
+                <p><strong>🌬 Wind Speed:</strong> ${data.wind.speed} m/s</p>
+
+                <p><strong>☁ Condition:</strong> ${data.weather[0].main}</p>
+
+            </div>
+        `;
+
+    }
+        searchWeatherBtn.addEventListener("click", function () {
+
+        const city = cityInput.value.trim();
+
+        if (city === "") {
+
+            alert("Please enter a city name.");
+
+            return;
+        }
+
+        getWeather(city);
+
+    });
+
+    cityInput.addEventListener("keypress", function (e) {
+
+        if (e.key === "Enter") {
+
+            searchWeatherBtn.click();
+
+        }
+
+    });
+
+}
