@@ -1,17 +1,27 @@
 const themeBtn = document.getElementById("themeBtn");
 
-if(themeBtn){
+if (themeBtn) {
 
-    themeBtn.addEventListener("click",()=>{
+    // Load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-theme");
+        themeBtn.textContent = "☀️";
+    }
+
+    themeBtn.addEventListener("click", () => {
 
         document.body.classList.toggle("dark-theme");
 
-        if(document.body.classList.contains("dark-theme")){
-            themeBtn.textContent="☀️";
-        }
+        if (document.body.classList.contains("dark-theme")) {
 
-        else{
-            themeBtn.textContent="🌙";
+            localStorage.setItem("theme", "dark");
+            themeBtn.textContent = "☀️";
+
+        } else {
+
+            localStorage.setItem("theme", "light");
+            themeBtn.textContent = "🌙";
+
         }
 
     });
